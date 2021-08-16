@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "Fendle",
+    "version": "0.0.0",
+    "description": "Legger til pendletider for boligannonser på Finn.no.",
+    "icons": {
+        "48": "icons/commute.svg",
+        "96": "icons/commute.svg"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.finn.no/realestate/homes/ad.html*",
+                "*://*.finn.no/realestate/homes/search.html*"
+            ],
+            "js": [
+                "test.js"
+            ]
+        }
+    ]
+}
