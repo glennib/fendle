@@ -14,8 +14,23 @@
                 "*://*.finn.no/realestate/homes/search.html*"
             ],
             "js": [
+                "API_KEY",
                 "test.js"
             ]
+        },
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "API_KEY",
+                "test2.js"
+            ]
         }
-    ]
+    ],
+    "background": {
+        "scripts": [
+            "background/auxiliary.js"
+        ]
+    }
 }
