@@ -50,21 +50,7 @@ function assign_travel_data(id) {
         })
         let query_url = google_maps_base_url + query_data.toString();
         console.debug("assign_travel_data: url=" + query_url)
-        let request = new XMLHttpRequest();
-        let querier = new GmapsQuerier(id);
-        console.debug("assign_travel_data: Created GmapsQuerier object")
-        request.addEventListener("load", querier)
-        request.addEventListener("error", function (event) {
-            console.debug(event)
-        })
-        console.debug("assign_travel_data: Added listener")
-        request.open("GET", query_url, false);
-        console.debug("assign_travel_data: Opened request")
-        console.debug("assign_travel_data: sending....")
-        request.send(null)
-        console.debug("assign_travel_data: Sent request")
-        let response = request.response
-        console.debug(response)
+        
     }
 }
 
