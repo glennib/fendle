@@ -15,7 +15,7 @@
             ],
             "js": [
                 "API_KEY",
-                "test.js"
+                "scripts/finn_realestate.js"
             ]
         },
         {
@@ -24,7 +24,7 @@
             ],
             "js": [
                 "API_KEY",
-                "test2.js"
+                "scripts/all.js"
             ]
         }
     ],
