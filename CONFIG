@@ -1,1 +1,4 @@
-const destination_address = "Replace this text with address of destination";
+const destination_address_1 = "Replace this text with address of destination 1";
+const destination_address_2 = "Replace this text with address of destination 2";
+const language_code = "no"
+const display_units = "metric"

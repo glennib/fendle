@@ -5,7 +5,13 @@ async function query_and_store(id, address) {
     global_data[id] = entry
     entry['id'] = id
     entry['address'] = address
-    entry['query_info'] = await gquery(address, destination_address)
+    let query_info = {
+        'driving_1': await gquery(address, destination_address_1, "driving"),
+        'transit_1': await gquery(address, destination_address_1, "transit"),
+        'driving_2': await gquery(address, destination_address_2, "driving"),
+        'transit_2': await gquery(address, destination_address_2, "transit"),
+    }
+    entry['query_info'] = query_info
     return entry
 }
 
