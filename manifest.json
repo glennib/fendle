@@ -15,16 +15,8 @@
             ],
             "js": [
                 "API_KEY",
+                "CONFIG",
                 "scripts/finn_realestate.js"
-            ]
-        },
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "API_KEY",
-                "scripts/all.js"
             ]
         }
     ],

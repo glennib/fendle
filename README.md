@@ -1,4 +1,4 @@
-# fendle
+# Fendle
 
 Find commute times from Finn realestate listings
 
