@@ -1,38 +1,68 @@
-var global_data = { }
+var global_data = {}
 
 async function query_and_store(id, address) {
-    let entry = { }
+    let entry = {}
     global_data[id] = entry
-    entry['id'] = id
-    entry['address'] = address
-    let query_info = {
-        'driving_1': await gquery(address, destination_address_1, "driving"),
-        'transit_1': await gquery(address, destination_address_1, "transit"),
-        'driving_2': await gquery(address, destination_address_2, "driving"),
-        'transit_2': await gquery(address, destination_address_2, "transit"),
+    entry.listing_info = {
+        id: id,
+        address: address,
     }
-    entry['query_info'] = query_info
+    let destination_queries = {}
+    for (const destination_info of destination_infos) {
+        let mode_queries = {}
+        for (const travel_mode of travel_modes) {
+            mode_queries[travel_mode] = await
+                gquery(address, destination_info.address, travel_mode)
+        }
+        destination_queries[destination_info.label] = mode_queries
+    }
+    entry['destination_queries'] = destination_queries
     return entry
 }
 
 function add_to_listing(entry) {
-    let id = entry.id
-    let query_info = entry.query_info
-    console.debug("Added listing with id " + id)
-    console.debug(query_info)
-    let address = entry.address
-    let leg = query_info.routes[0].legs[0]
-    let distance = leg.distance
-    let duration = leg.duration
-    let p = document.createElement("p")
-    let text = ""
-    text += "Address: " + address
-    text += ", "
-    text += "Distance: " + distance.text
-    text += ", "
-    text += "Duration: " + duration.text
-    p.appendChild(document.createTextNode(text))
-    document.body.appendChild(p)
+    let id = entry.listing_info.id
+    let address = entry.listing_info.address
+    let listing_li = document.createElement("li")
+    listing_li.appendChild(document.createTextNode(id + ": " + address))
+
+    let destinations_ul = document.createElement("ul")
+
+    let destination_queries = entry.destination_queries
+    let destinations = Object.keys(destination_queries)
+    for (const destination of destinations) {
+        let destination_li = document.createElement("li")
+        destination_li.appendChild(document.createTextNode(destination))
+        
+        let modes_ul = document.createElement("ul")
+        let mode_queries = destination_queries[destination]
+        let modes = Object.keys(mode_queries)
+        for (const mode of modes) {
+            let query = mode_queries[mode]
+            let text = mode + " ::: "
+            if (query.status == "OK") {
+                let leg = query.routes[0].legs[0]
+                let distance = leg.distance
+                let duration = leg.duration
+                text += "Distance: " + distance.text
+                text += ", "
+                text += "Duration: " + duration.text
+            }
+            else {
+                text += "Travel mode unavailable."
+            }
+            let mode_li = document.createElement("li")
+            mode_li.appendChild(document.createTextNode(text))
+            modes_ul.appendChild(mode_li)
+        }
+        destination_li.appendChild(modes_ul)
+        destinations_ul.appendChild(destination_li)
+    }
+
+    listing_li.appendChild(destinations_ul)
+
+    let main_list = document.getElementById("fendle__main_list")
+    main_list.appendChild(listing_li)
 }
 
 function lookup_or_query(data) {
@@ -44,7 +74,7 @@ function lookup_or_query(data) {
     let address = data.address
     if (id in global_data) {
         let entry = global_data[id]
-        if ("query_info" in entry) {
+        if ("destination_queries" in entry) {
             add_to_listing(entry)
             return
         }
@@ -54,6 +84,9 @@ function lookup_or_query(data) {
 }
 
 function main() {
+    let ul = document.createElement("ul")
+    ul.id = "fendle__main_list"
+    document.body.appendChild(ul)
     let listings = find_listings_mock()
     for (const listing of listings) {
         lookup_or_query(listing)

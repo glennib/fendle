@@ -8,12 +8,13 @@ function gparameters(origin, destination, mode) {
         mode: mode,
         language: language_code,
         units: display_units,
-        departure_time: get_next_monday_at(7, 15),
+        departure_time: get_next_monday_at(7, 15).getTime(),
         traffic_model: "best_guess"
     }
     if (mode == "transit") {
         parameters["transit_routing_preference"] = "fewer_transfers"
     }
+    return parameters
 }
 
 async function gquery(origin, destination, mode) {
