@@ -1,0 +1,20 @@
+.textBox {
+    padding: 0.1em;
+    width: max-content;
+}
+
+.red {
+    background-color: red;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.green {
+    background-color: green;
+}
+
+.gray {
+    background-color: gray;
+}

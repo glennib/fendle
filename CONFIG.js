@@ -9,3 +9,12 @@ const travel_modes = [
     "transit",
     "bicycling",
 ]
+
+const available_travel_modes = 
+    ["driving", "transit", "transit", "bicycling", "bicycling"]
+
+
+const duration_limits = {
+    good: 20 * 60,
+    fair: 40 * 60,
+}
