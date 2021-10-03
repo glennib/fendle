@@ -34,6 +34,7 @@ function add_to_listing(entry) {
     console.log("Fastest combo: " + fastest_combo.join(", "))
 
     let destinations = Object.keys(destination_queries)
+    let i = 0
     for (const destination of destinations) {
         let destination_li = document.createElement("li")
         destination_li.appendChild(document.createTextNode(destination))
@@ -41,38 +42,40 @@ function add_to_listing(entry) {
         let modes_ul = document.createElement("ul")
         let mode_queries = destination_queries[destination]
         let modes = Object.keys(mode_queries)
-        for (const mode of modes) {
-            let query = mode_queries[mode]
-            let text = mode + " ::: "
-            let box = document.createElement("div")
-            if (query.status == "OK") {
-                let leg = query.routes[0].legs[0]
-                let distance = leg.distance
-                let duration = leg.duration
-                text += "Distance: " + distance.text
-                text += ", "
-                text += "Duration: " + duration.text
-                if (duration.value <= duration_limits.good) {
-                    box.className = "textBox green"
-                }
-                else if (duration.value < duration_limits.fair) {
-                    box.className = "textBox yellow"
-                }
-                else {
-                    box.className = "textBox red"
-                }
+        // for (const mode of modes) {
+        let mode = fastest_combo[i]
+        let query = mode_queries[mode]
+        let text = mode + " ::: "
+        let box = document.createElement("div")
+        if (query.status == "OK") {
+            let leg = query.routes[0].legs[0]
+            let distance = leg.distance
+            let duration = leg.duration
+            text += "Distance: " + distance.text
+            text += ", "
+            text += "Duration: " + duration.text
+            if (duration.value <= duration_limits.good) {
+                box.className = "textBox green"
+            }
+            else if (duration.value < duration_limits.fair) {
+                box.className = "textBox yellow"
             }
             else {
-                text += "Travel mode unavailable."
-                box.className = "textBox gray"
+                box.className = "textBox red"
             }
-            let mode_li = document.createElement("li")
-            box.appendChild(document.createTextNode(text))
-            mode_li.appendChild(box)
-            modes_ul.appendChild(mode_li)
         }
+        else {
+            text += "Travel mode unavailable."
+            box.className = "textBox gray"
+        }
+        let mode_li = document.createElement("li")
+        box.appendChild(document.createTextNode(text))
+        mode_li.appendChild(box)
+        modes_ul.appendChild(mode_li)
+        // }
         destination_li.appendChild(modes_ul)
         destinations_ul.appendChild(destination_li)
+        i += 1
     }
 
     listing_li.appendChild(destinations_ul)
