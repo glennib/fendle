@@ -15,15 +15,15 @@
             "js": [
                 "config/API_KEY.js",
                 "config/CONFIG.js",
-                "scripts/calculate_travel_time.js",
                 "scripts/auxiliary.js",
+                "scripts/calculate_travel_time.js",
                 "scripts/finn_find_listings.js",
                 "scripts/google_maps.js",
+                "scripts/query_store_lookup.js",
                 "scripts/finn.js"
             ]
         }
     ],
-    "background": {},
     "web_accessible_resources": [
         "icons/*",
         "style/*"

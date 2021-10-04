@@ -19,7 +19,6 @@ function find_listings_mock() {
 function find_listings() {
     console.debug("function find_listings: Finding listings...")
     let listings = document.getElementsByClassName("ads__unit");
-    console.debug(listings)
     let out = []
     for (const listing of listings) {
         let listingDetailsList = listing.getElementsByClassName("ads__unit__content__details")
@@ -30,13 +29,19 @@ function find_listings() {
         let listingDetails = listingDetailsList[0]
         let address = listingDetails.innerText
         let finnId = listing.getElementsByClassName("ads__unit__link")[0].id
+        listing.id = finnId;
         let data = {
             "id": finnId,
             "address": address
         }
         out.push(data)
-        console.debug("function find_listings: Pushed...")
+        // console.debug("function find_listings: Pushed " + finnId)
     }
     console.debug("function find_listings: Returning...")
     return out;
+}
+
+function find_listing(id) {
+    let listings = document.getElementsByClassName("ads__unit");
+    
 }
