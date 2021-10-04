@@ -10,19 +10,22 @@
     "content_scripts": [
         {
             "matches": [
-                "*://*.finn.no/realestate/homes/ad.html*",
                 "*://*.finn.no/realestate/homes/search.html*"
             ],
             "js": [
-                "API_KEY",
-                "CONFIG",
-                "scripts/finn_realestate.js"
+                "config/API_KEY.js",
+                "config/CONFIG.js",
+                "scripts/calculate_travel_time.js",
+                "scripts/auxiliary.js",
+                "scripts/finn_find_listings.js",
+                "scripts/google_maps.js",
+                "scripts/finn.js"
             ]
         }
     ],
-    "background": {
-        "scripts": [
-            "background/auxiliary.js"
-        ]
-    }
+    "background": {},
+    "web_accessible_resources": [
+        "icons/*",
+        "style/*"
+    ]
 }

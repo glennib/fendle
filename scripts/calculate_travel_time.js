@@ -1,5 +1,4 @@
 let travel_mode_combinations = combinations_2(available_travel_modes)
-console.log(travel_mode_combinations)
 
 function fastest_combination(destination_queries) {
     function measure(values, p) {
